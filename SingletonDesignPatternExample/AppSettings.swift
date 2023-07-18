@@ -19,8 +19,8 @@ final public class AppSettings {
         static var theme = "Theme"
         static var maxConsurrentDownloads = "MaxConsurrentDownloads"
     }
-    private var settings: [String: Any] = ["Theme": "Dark",
-                                           "MaxConsurrentDownloads": 4]
+    private var settings: [String: Any] = [Constants.theme: "Dark",
+                                           Constants.maxConsurrentDownloads: 4]
     
     private init() {}
     
@@ -30,5 +30,9 @@ final public class AppSettings {
     
     public func int(forKey key: String) -> Int? {
         return settings[key] as? Int
+    }
+    
+    public func set(value: Any, forKey key: String) {
+        settings[key] = value
     }
 }
