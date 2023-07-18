@@ -22,3 +22,5 @@ This ripple effect is quite a common problem in projects that rely heavily on si
 implementing the singleton correctly isn't always easy and straightforward.
 
 Synchronization issues arise if we forget to protect our singletons against concurrent usage. On the other hand, a threat safe singleton might become a performance bottleneck if multiple threads are using it in parallel.
+
+Swift dictionaries are not thread safe
