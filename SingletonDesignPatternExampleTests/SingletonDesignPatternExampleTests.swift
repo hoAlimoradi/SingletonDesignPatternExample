@@ -32,5 +32,29 @@ final class SingletonDesignPatternExampleTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    
+    func testConcurrentUsage() {
+        let concurrentQueue = DispatchQueue(label: "concurrentQueue", attributes: .concurrent)
+        
+        let expect = expectation(description: "Using AppSettings.shared from multiple threads shall succeed")
+        
+        let callCount = 100
+        
+        for callIndex in 1...callCount {
+            concurrentQueue.async {
+                AppSettings.shared.set(value: callIndex, forKey: String(callIndex))
+            }
+        }
+        
+        while AppSettings.shared.int(forKey: String(callCount)) != callCount {
+            // nop
+        }
+        
+        expect.fulfill()
+        
+        waitForExpectations(timeout: 5) { (error) in
+            XCTAssertNil(error, "Test expectation failed")
+        }
+    }
 
 }
